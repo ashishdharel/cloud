@@ -1,46 +1,47 @@
 name: Static Deployment
 
 on:
-    push:
-        branches:
-            - main
+  push:
+    branches:
+      - main
+
 jobs:
-    deploy:
-        runs-on: ubuntu-latest
+  deploy:
+    runs-on: ubuntu-latest
 
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@v2
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-            - name: Install Node.js and npm
-              uses: actions/setup-node@v2
-              with:
-                node-version: '18'
-            
-            - name: Install dependencies
-              run: npm install
+      - name: Install Node.js and npm
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
       
-            - name: Build React app
-              run: npm run build
+      - name: Build React app
+        run: npm run build
 
-            - name: Copy artifacts to server
-              uses: appleboy/scp-action@master
-              with:
-                host: ${{ secrets.SERVER_HOST }}
-                username: ${{ secrets.SERVER_USERNAME }}
-                key: ${{ secrets.SERVER_SSH_KEY }}
-                source: "build/*"
-                target: "/home/ubuntu"
+      - name: Copy artifacts to server
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          source: "build/*"
+          target: "/home/ubuntu"
 
-            - name: Deploy code to EC2
-              uses: appleboy/ssh-action@master
-              with:
-                host: ${{ secrets.EC2_HOST }}
-                username: ${{ secrets.EC2_USERNAME }}
-                key: ${{ secrets.SSH_PRIVATE_KEY }}
-                port: ${{ secrets.EC2_PORT }}
-                script: |
-                    cd /home/ubuntu/
-                    sudo rm -rf /var/www/html/*
-                    sudo mv build/* /var/www/html/
-                    echo "It's Working"
+      - name: Deploy code to EC2
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.EC2_PORT }}
+          script: |
+            cd /home/ubuntu/
+            sudo rm -rf /var/www/html/*
+            sudo mv build/* /var/www/html/
+            echo "It's Working"
