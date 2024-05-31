@@ -38,8 +38,7 @@ jobs:
                 key: ${{ secrets.SSH_PRIVATE_KEY }}
                 port: ${{ secrets.EC2_PORT }}
                 script: |
-                    cd /home/ubuntu/cloud
-                    scp -r build/ ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:
+                    cd /home/ubuntu/
                     sudo rm -rf /var/www/html/*
                     sudo mv build/* /var/www/html/
                     echo "It's Working"
