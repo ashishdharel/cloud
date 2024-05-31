@@ -23,7 +23,7 @@ jobs:
                     cd /home/ubuntu/cloud
                     git pull origin main
                     npm install
-                    npm run bild
+                    npm run build
                     sudo rm -rf /var/www/html/*
                     sudo mv /home/ubuntu/cloud/build/* /var/www/html/
                     echo "It's Working"
