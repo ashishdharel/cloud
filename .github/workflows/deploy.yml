@@ -23,11 +23,7 @@ jobs:
                     cd /home/ubuntu/cloud
                     git pull origin main
                     npm install
-                    sudo a2enmod proxy
-                    sudo a2enmod proxy_http
-                    sudo mv proxy.conf /etc/apache2/sites-available/
-                    sudo dissite 000-default.conf
-                    sudo a2ensite proxy.conf
-                    sudo serviceapache2 restart
-                    npm run start
+                    npm run bild
+                    sudo rm -rf /var/www/html/*
+                    sudo mv /home/ubuntu/cloud/build/* /var/www/html/
                     echo "It's Working"
