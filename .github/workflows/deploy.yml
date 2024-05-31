@@ -22,4 +22,12 @@ jobs:
                 script: |
                     cd /home/ubuntu/cloud
                     git pull origin main
+                    npm install
+                    sudo a2enmod proxy
+                    sudo a2enmod proxy_http
+                    sudo mv proxy.conf /etc/apache2/sites-available/
+                    sudo dissite 000-default.conf
+                    sudo a2ensite proxy.conf
+                    sudo serviceapache2 restart
+                    npm run start
                     echo "It's Working"
