@@ -11,7 +11,18 @@ jobs:
         steps:
             - name: Checkout code
               uses: actions/checkout@v2
+
+            - name: Install Node.js and npm
+              uses: actions/setup-node@v2
+              with:
+                node-version: '18'
+            
+            - name: Install dependencies
+              run: npm install
       
+            - name: Build React app
+              run: npm run build
+
             - name: Deploy code to EC2
               uses: appleboy/ssh-action@master
               with:
@@ -21,9 +32,7 @@ jobs:
                 port: ${{ secrets.EC2_PORT }}
                 script: |
                     cd /home/ubuntu/cloud
-                    git pull origin main   
-                    npm install 
-                    npm run build
+                    scp -r build/ ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:
                     sudo rm -rf /var/www/html/*
-                    sudo mv /home/ubuntu/cloud/build/* /var/www/html/
+                    sudo mv build/* /var/www/html/
                     echo "It's Working"
