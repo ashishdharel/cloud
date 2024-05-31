@@ -22,12 +22,13 @@ jobs:
       
             - name: Build React app
               run: npm run build
+              
             - name: Transfer build files to EC2
               env:
                  SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
 
               run: |
-              scp -i $SSH_PRIVATE_KEY -r $GITHUB_WORKSPACE/build ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:/home/ubuntu/
+                scp -i ${{ secrets.SSH_PRIVATE_KEY }} -r $GITHUB_WORKSPACE/build ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:/home/ubuntu/
 
 
             - name: Deploy code to EC2
