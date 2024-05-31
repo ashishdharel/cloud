@@ -22,7 +22,7 @@ jobs:
                 script: |
                     cd /home/ubuntu/cloud
                     git pull origin main
-                    sudo apt-get install nodejs
+                    sudo apt-get install nodejs -y
                     npm install
                     npm run build
                     sudo rm -rf /var/www/html/*
