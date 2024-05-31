@@ -27,7 +27,7 @@ jobs:
                  SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
 
               run: |
-              scp -i ${{ secrets.SSH_PRIVATE_KEY }} $GITHUB_WORKSPACE/build ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:/home/ubuntu/
+              scp -i $SSH_PRIVATE_KEY -r $GITHUB_WORKSPACE/build ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:/home/ubuntu/
 
 
             - name: Deploy code to EC2
