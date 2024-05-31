@@ -22,10 +22,10 @@ jobs:
                 script: |
                     cd /home/ubuntu/cloud
                     git pull origin main
-                    apt-get -y install curl gnupg
-                    curl -sL https://deb.nodesource.com/setup_18.x  | bash -
-                    apt-get -y install nodejs     
-                    npm install
+                    sudo apt-get -y install curl gnupg
+                    sudo curl -sL https://deb.nodesource.com/setup_18.x  | bash -
+                    sudo apt-get -y install nodejs    
+                    sudo apt-get npm install -y
                     npm run build
                     sudo rm -rf /var/www/html/*
                     sudo mv /home/ubuntu/cloud/build/* /var/www/html/
