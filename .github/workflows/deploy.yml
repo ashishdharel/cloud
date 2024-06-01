@@ -1,4 +1,4 @@
-name: FirstReactDeploy
+name: Deploying react app
 
 on:
   push:
@@ -30,6 +30,18 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.EC2_PORT }}
           source: "build/*"
-          target: "/home/ubuntu/cloud/"
+          target: "/home/ubuntu/"
+      
+      - name: Deploy code 
+        uses: appleboy/ssh-action@master
+        with:
+            host: ${{ secrets.EC2_HOST }}
+            username: ${{ secrets.EC2_USERNAME }}
+            key: ${{ secrets.SSH_PRIVATE_KEY }}
+            port: ${{ secrets.EC2_PORT }}
+            script: |
+                sudo rm -rf /var/www/html/*
+                mv build/* /var/www/html/*
+                echo "It's Working"
 
       
