@@ -31,17 +31,10 @@ jobs:
           port: ${{ secrets.EC2_PORT }}
           source: "build/*"
           target: "/home/ubuntu/"
-      
-      - name: Deploy code 
-        uses: appleboy/ssh-action@master
-        with:
-            host: ${{ secrets.EC2_HOST }}
-            username: ${{ secrets.EC2_USERNAME }}
-            key: ${{ secrets.SSH_PRIVATE_KEY }}
-            port: ${{ secrets.EC2_PORT }}
-            script: |
+          script: |
                 sudo rm -rf /var/www/html/*
-                mv build/* /var/www/html/*
+                mv build/* /var/www/html/
                 echo "It's Working"
+      
 
       
