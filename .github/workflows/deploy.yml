@@ -30,14 +30,6 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.EC2_PORT }}
           source: "build/*"
-          target: "/home/ubuntu/ubuntu"
+          target: "/home/ubuntu/cloud/"
 
-      - name: Restart Apache
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.EC2_PORT }}
-          script: |
-            sudo systemctl restart apache2
+      
