@@ -15,7 +15,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '18'
 
       - name: Install dependencies and build
         run: |
@@ -30,11 +30,8 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.EC2_PORT }}
           source: "build/*"
-          target: "/home/ubuntu/"
-          script: |
-                sudo rm -rf /var/www/html/*
-                mv build/* /var/www/html/
-                echo "It's Working"
+          target: "/home/ubuntu/var/www/html"
+          
       
 
       
