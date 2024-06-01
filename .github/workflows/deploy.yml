@@ -30,8 +30,11 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.EC2_PORT }}
           source: "build/*"
-          target: "/home/ubuntu/var/www/html"
-          
+          target: "/home/ubuntu/"
+          script: |
+                sudo rm -rf /var/www/html/*
+                sudo mv build/* /var/www/html/
+                echo "It's Working"
       
 
       
