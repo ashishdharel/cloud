@@ -7,7 +7,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Wassup Guys this is frontend react runnnig on ec2 server using github action.
+          Wassup Guys this is frontend react runnnig on ec2 server automated github action.
         </p>
         <a
           className="App-link"
